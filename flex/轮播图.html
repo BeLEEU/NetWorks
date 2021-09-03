@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>    
+  <style>
+    .main{
+      border: 1px solid palevioletred;
+      position: relative;
+      margin: auto;
+      width: 480px;
+      height: 360px;
+      
+    }
+    .main .swiper{
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+    }
+    .main .swiper-slider{
+      width: 100%;
+      flex-shrink: 0;
+      background-color: saddlebrown;
+    }
+    .main .swiper-slider img{
+      width: 100%;
+    }
+    .main .bottom{
+      position: absolute;
+      bottom: 0;
+      height: 28px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .main .bottom .radius{
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      border-radius: 5px;
+      background-color: slateblue;
+    }
+    .main .btnMain{
+      position: absolute;
+      top: 0;
+      display: flex;
+      height: 100%;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn{
+      background-color: springgreen;
+      width: 10px;
+      height: 10px;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="swiper">
+      <div class="swiper-slider"><img src="" alt="1"></div>
+      <div class="swiper-slider"><img src="" alt="2"></div>
+      <div class="swiper-slider"><img src="" alt="3"></div>
+    </div>
+    <div class="bottom">
+      <div class="radius"></div>
+      <div class="radius"></div>
+      <div class="radius"></div>
+    </div>
+    <div class="btnMain">
+      <div class="btn preBtn"></div>
+      <div class="btn nexBtn"></div>
+    </div>
+  </div>
+</body>
+</html>

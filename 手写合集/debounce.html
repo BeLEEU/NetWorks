@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debounce</title>
+</head>
+<body>
+  <script>
+    //防抖
+    var name = "windows"
+    function func() {
+      console.log(this.name);
+    }
+    function Debounce(func, delay) {
+      let timeout;
+      return function() {
+        if(timeout) {
+          clearTimeout(timeout)
+        }
+        let name = "function";
+        let context = this;
+        let args = arguments;
+        timeout = setTimeout(() => {
+          func.apply(context, args)
+        }, delay)
+      }
+    }
+    Debounce(func, name)();
+    //节流
+    function Throttle(fn, delay) {
+      let canExcute = true;
+      return function() {
+        if(canExcute) {
+          canExcute = false;
+          setTimeout(() => {
+            canExcute = true;
+            fn();
+          }, delay);
+        }
+      }
+    }
+    const thr = Throttle(func, 2000);
+    thr();
+    thr();
+    thr();
+  </script>
+</body>
+</html>

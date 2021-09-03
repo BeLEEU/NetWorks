@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call Apply Bind</title>
+</head>
+<body>
+  <script>
+    Function.prototype.myCall = function(context, ...args) {
+      context = typeof context === 'object' ? context : window;
+      const key = Symbol();
+      context[key] = this;
+      
+      const result = context[key](...args);
+      delete context[key];
+      return result;
+    }
+
+    Function.prototype.myApply = function(context, args) {
+      context = typeof context ==='object' ? context : window;
+      const key = Symbol();
+      context[key] = this;
+      const result = context[key](...args);
+      delete context[key];
+      return result;
+    }
+
+    Function.prototype.myBind = function(context) {
+      context = typeof context ==='object' ? context : window;
+      //直接使用箭头函数，就不用在外部赋值this了
+      return (...args) => {
+        this.call(context, ...args);
+      }
+    }
+  </script>
+</body>
+</html>

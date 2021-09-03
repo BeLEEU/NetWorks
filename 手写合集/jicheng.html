@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5种继承</title>
+</head>
+<body>
+  <script>
+    //原型链继承 
+    /*
+    优点：因为通过原型链继承，就可以继承原型上定义的方法，可以复用
+    缺点：1.不能给超类型的父类传参，即使传参了，得到的属性是同一个,但在子类中定义相同属性可以避免拿到同一属性实例
+    */
+    function Parent(name) {
+      this.name = name;
+      this.gender = "male";
+    };
+    const parent = new Parent("Parent");
+    console.log(parent.__proto__.constructor);
+
+    Parent.prototype.func = function() {
+      console.log("Parent Function");
+    }
+    function Son(name){
+      this.name = name;
+    };
+    Son.prototype = new Parent("parentName");
+    Son.prototype.constructor = Son;
+    const son1 = new Son("sonName1");
+    const son2 = new Son("sonName2");
+    console.log(son1.__proto__.name, son2.name)
+    son1.func();
+    //借用构造函数继承
+    /*
+    优点：解决属性共享
+    缺点：无法调用超类的原型方法
+    */
+    function Son1(name){
+      Parent.call(this,name)
+    }
+    const son3 = new Son1('sonName3');
+    console.log(son3.gender)
+
+    //组合继承方法
+    /*
+    就是结合借用构造函数和原型链继承
+    优点：解决了无法调用超类原型中方法的缺点
+    缺点：会在子类和超类中定义了两个同名属性
+    */
+    function Son4(name) {
+      Parent.call(this, name)
+    }
+    Son4.prototype = new Parent("repeat Name");
+
+    const son4 = new Son4("son4Name");
+    console.log(son4.name, son4.__proto__.name);
+    console.log(son4.__proto__.constructor) //注意：通过原型链非方式继承的话，需要手动修改一下子类的构造函数，否则它会指向超类的constructor
+    
+    //寄生组合式
+    //Object.create(obj)创建了一个P以obj为原型的空对象，跳过了超类构造函数中的赋值过程
+    function Son5(name) {
+      Parent.call(this, name)
+    }
+    Son5.prototype = Object.create(Parent.prototype);
+    Son5.prototype.constructor = Son5;
+
+    //es6继承
+    class Man {
+      constructor(name){
+        this.name = name;
+      }
+
+      mancry() {
+        console.log("mancry");
+      }
+    }
+
+    class Someone extends Man {
+      constructor(name) {
+        super(name);
+        this.gender = "male";
+      }
+
+      someone() {
+        console.log("someone");
+      }
+    }
+
+    const some = new Someone("hello");
+    console.log(Someone.prototype.constructor);
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>myNew</title>
+</head>
+<body>
+  <script>
+    /*
+    创建一个新的对象基于（其原型是构造函数的原型）
+    继承原型上的方法，添加新的属性到对象上
+    如果执行结果返回值是对象则直接返回，否则返回新创建的对象
+    */
+    function Person(name, gender) {
+      this.name = name;
+      this.gender = gender;
+      return {
+        name: this.name,
+      }
+    }
+
+    function myNew(obj, ...rest){
+      const newObj = Object.create(obj.prototype)
+
+      const result = obj.apply(newObj, rest);
+
+      return typeof result === 'object' ? result : newObj;
+    }
+
+    const result = myNew(Person, "person", "male");
+    console.log(result);
+  </script>
+</body>
+</html>
